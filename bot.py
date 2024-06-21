@@ -14,7 +14,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
 
 # ID of the troubleshooting channel
-TROUBLESHOOTING_CHANNEL_ID = 589452849474174978
+TROUBLESHOOTING_CHANNEL_ID = 1185842396873900032
 
 
 @bot.event
