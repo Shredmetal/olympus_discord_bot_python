@@ -2,6 +2,9 @@
 
 This bot is intended to be deployed on the DCS Olympus Discord. More features are planned for later releases.
 
+Many thanks to the tireless DCS Olympus team members who trawled the internet hunting down a whole bunch of gifs 
+tangentially related to logs.
+
 ## Features
 
 - Responds to the `/support` command by checking for required log files and providing feedback.
@@ -33,8 +36,9 @@ Use the provided deploy script to build and run the Docker container:
 
 ```sh deploy.sh```
 
-
 ### 4. Invite the Bot to Your Discord Server
+
+@WirtsLegs if you are reading this I already gave you the link in the Admin channel.
 
 Generate an invite link for your bot with the necessary permissions:
 
@@ -60,7 +64,6 @@ Once the bot is up and running, you can use the `/support` command in your Disco
 ### Example Command
 
 ```/support```
-
 
 The bot will check for required log files and provide feedback. If no logs are attached, it will send a random GIF.
 
