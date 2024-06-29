@@ -10,17 +10,38 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-TROUBLESHOOTING_CHANNEL_ID = 589452849474174978
+TROUBLESHOOTING_CHANNEL_ID = 1185842396873900032
+ALLOWED_CHANNEL_ID = 1180168498413052015
+
 
 class ThreadState(Enum):
     AWAITING_LOGS = auto()
     LOGS_RECEIVED = auto()
 
+
 thread_states = {}
 
-@bot.tree.command(name="support", description="Initiate a support request")
+
+@bot.tree.command(name="support", description="Initiate an Olympus support request")
 @commands.cooldown(1, 3600, commands.BucketType.user)
 async def support(interaction: discord.Interaction):
+
+    if interaction.channel_id != ALLOWED_CHANNEL_ID:
+        correct_channel = interaction.guild.get_channel(ALLOWED_CHANNEL_ID)
+        if correct_channel:
+            await interaction.response.send_message(
+                f"This command can only be used in the designated support channel. "
+                f"Please use {correct_channel.mention} for support requests.",
+                ephemeral=True
+            )
+        else:
+            await interaction.response.send_message(
+                "This command can only be used in the designated support channel. "
+                "Please contact an administrator if you cannot find the support channel.",
+                ephemeral=True
+            )
+        return
+
     troubleshooting_channel_mention = f"<#{TROUBLESHOOTING_CHANNEL_ID}>"
 
     thread_name = f"Support for {interaction.user.name}"
@@ -32,7 +53,8 @@ async def support(interaction: discord.Interaction):
         return
 
     await interaction.response.send_message(
-        content=f"Support thread created: {thread.mention}\nPlease upload your log files (Olympus_log.txt and dcs.log) in this thread.",
+        content=f"Support thread created: {thread.mention}\nPlease upload your log files (Olympus_log.txt and dcs.log) "
+                f"in this thread.",
         ephemeral=True
     )
 
@@ -58,7 +80,8 @@ async def on_message(message):
                 attachments = message.attachments
                 required_files = ["Olympus_log.txt", "dcs.log"]
                 missing_files = check_missing_files(attachments, required_files)
-                response_message = generate_response_message(missing_files, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
+                response_message = generate_response_message(missing_files,
+                                                             f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
 
                 await message.channel.send(response_message)
 
