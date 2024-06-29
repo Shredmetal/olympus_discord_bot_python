@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
-from constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
-from enums import ThreadState
-
-thread_states = {}
+from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
+from ..utils.enums import ThreadState
+from ..core.shared_state import set_thread_state
 
 
 def register_commands(bot):
@@ -49,7 +48,7 @@ def register_commands(bot):
             f"from the DCS Olympus team will eventually get to you."
         )
 
-        thread_states[thread.id] = ThreadState.AWAITING_LOGS
+        set_thread_state(thread.id, ThreadState.AWAITING_LOGS)
 
     @support.error
     async def support_error(interaction: discord.Interaction, error):

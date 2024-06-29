@@ -1,11 +1,8 @@
 import discord
 from discord.ext import tasks
-from enums import ThreadState
+from .shared_state import thread_states
 
-thread_states = {}
-
-
-@tasks.loop(hours=72)
+@tasks.loop(hours=24)
 async def cleanup_old_threads(bot):
     for guild in bot.guilds:
         for thread in guild.threads:

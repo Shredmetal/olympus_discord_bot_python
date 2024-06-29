@@ -1,8 +1,8 @@
 from discord.ext import commands
 import os
-from commands import register_commands
-from events import register_events
-from constants import INTENTS
+from .commands import register_commands
+from .events import register_events
+from ..utils.constants import INTENTS
 
 bot = commands.Bot(command_prefix='/', intents=INTENTS)
 

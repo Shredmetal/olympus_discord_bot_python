@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 # Set the Discord bot token as an environment variable
-ENV DISCORD_BOT_TOKEN
+ENV DISCORD_BOT_TOKEN "your-bot-token-here"
 
 # Run bot.py when the container launches
-CMD ["python", "bot.py"]
+CMD ["python", "-m", "src.bot.bot"]

@@ -1,11 +1,10 @@
 import discord
-from helper_functions import check_missing_files, generate_response_message
-from online_resources import get_random_gif
-from constants import TROUBLESHOOTING_CHANNEL_ID
-from enums import ThreadState
-from tasks import cleanup_old_threads
-
-thread_states = {}
+from ..utils.helper_functions import check_missing_files, generate_response_message
+from ..utils.online_resources import get_random_gif
+from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID
+from ..utils.enums import ThreadState
+from ..core.shared_state import get_thread_state, set_thread_state
+from ..core.tasks import cleanup_old_threads
 
 
 def register_events(bot):
@@ -32,7 +31,7 @@ def register_events(bot):
                     return
 
                 # Get the current thread state, default to AWAITING_LOGS if not set
-                current_state = thread_states.get(thread_id, ThreadState.AWAITING_LOGS)
+                current_state = get_thread_state(thread_id)
 
                 if current_state == ThreadState.AWAITING_LOGS:
                     if message.attachments:
@@ -45,14 +44,14 @@ def register_events(bot):
                         await message.channel.send(response_message)
 
                         if not missing_files:
-                            thread_states[thread_id] = ThreadState.LOGS_RECEIVED
+                            set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
                     else:
                         await request_logs(message.channel)
                 elif current_state == ThreadState.LOGS_RECEIVED:
                     return
                 else:
                     # If the thread state is not set or in an unexpected state, set it to AWAITING_LOGS
-                    thread_states[thread_id] = ThreadState.AWAITING_LOGS
+                    set_thread_state(thread_id, ThreadState.AWAITING_LOGS)
                     await request_logs(message.channel)
 
         # This line is important to process commands
