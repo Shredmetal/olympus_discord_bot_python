@@ -3,5 +3,3 @@ services:
   bot:
     build: .
     container_name: mybot
-    environment:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
