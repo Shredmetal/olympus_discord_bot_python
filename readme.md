@@ -84,7 +84,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 - The servo-skull shall verify these digital sacrifices and respond as the Omnissiah wills.
 
 ## Rites of Contribution
-To improve this holy construct is to honor the Omnissiah. Follow these sacred steps:
+To improve this holy construct is to honour the Omnissiah. Follow these sacred steps:
 1. Fork the repository, creating a sanctified copy
 2. Create a new branch (`git checkout -b feature/GloriousEnhancement`)
 3. Commit your improvements (`git commit -m 'Add some GloriousEnhancement'`)
