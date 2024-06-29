@@ -10,11 +10,8 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Define environment variable
-ENV NAME World
+# Set the Discord bot token as an environment variable
+ENV DISCORD_BOT_TOKEN
 
 # Run bot.py when the container launches
 CMD ["python", "bot.py"]
