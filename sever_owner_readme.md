@@ -2,7 +2,7 @@
 
 link: ```https://hub.docker.com/repository/docker/shredmetal/olympus-discord-bot/general```
 
-bot invite link: ```https://discord.com/oauth2/authorize?client_id=1253744192363040829&permissions=309237771264&integration_type=0&scope=bot```
+bot invite link: ```go get one from the discord developer portal```
 
 Copy and paste the bot invite link into your browser, and invite it to the server.
 
