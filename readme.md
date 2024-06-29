@@ -5,7 +5,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 
 ## Canticles of Capability
 - Forges hallowed threads of support, sanctified by the Machine God
-- Scrutinizes the purity of log file offerings
+- Scrutinises the purity of log file offerings
 - Dispatches holy reminders adorned with sacred pict-captures
 - Purges ancient support threads, as is the will of the Omnissiah
 - Restricts the invocation of aid to designated channels, as decreed by the Fabricator-General
@@ -34,7 +34,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 
 ```python bot.py```
 
-### Second Rite: Containerized Summoning
+### Second Rite: Containerised Summoning
 
 1. Clone the sacred repository as before
 
