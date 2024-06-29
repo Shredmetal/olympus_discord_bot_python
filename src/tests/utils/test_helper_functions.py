@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 import discord
-from helper_functions import check_missing_files, generate_response_message
+from ...utils.helper_functions import check_missing_files, generate_response_message
 
 class TestHelperFunctions(unittest.TestCase):
 
