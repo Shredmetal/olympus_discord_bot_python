@@ -18,6 +18,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 ## Rituals of Implementation - The individual tech-priest may select the rite he deems most appropriate for the Omnissiah's blessing
 
 ### First Rite: Direct Invocation
+
 1. Clone the sacred repository:
 
 ```git clone https://github.com/Shredmetal/olympus_discord_bot_python.git```
@@ -95,7 +96,7 @@ To improve this holy construct is to honour the Omnissiah. Follow these sacred s
 This work is sealed under the Pact of GPL, a most holy agreement. Consult the GNU GPL v3 scroll for the full liturgy.
 
 ## Litanies of Gratitude
-- We offer thanks to the creators of [discord.py](https://github.com/Rapptz/discord.py), whose work honors the Machine God
+- We offer thanks to the creators of [discord.py](https://github.com/Rapptz/discord.py), whose work honours the Machine God
 - Blessings upon the DCS Olympus Community, whose faith in technology is unwavering
 - A most fervent hymn of praise to the DCS Olympus team, whose tireless efforts in scouring the vast data-seas of the Noosphere have yielded a bountiful harvest of humorous pict-captures tangentially related to log files. Their dedication to this sacred task brings levity to the grim darkness of technical support, truly embodying the Omnissiah's gift of binary humor. May their quest for the perfect gif never cease, and may their cache of digital merriment ever expand for the glory of the Machine God!
 
