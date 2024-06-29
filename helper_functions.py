@@ -13,6 +13,9 @@ def generate_response_message(missing_files: typing.List[str], troubleshooting_c
     """Generate the response message based on missing files."""
     if missing_files:
         missing_files_str = ", ".join(missing_files)
-        return f"Please attach the following missing files: {missing_files_str}. It's literally in the {troubleshooting_channel_mention} channel which you should be reading."
+        return (f"Please attach the following missing files: {missing_files_str}. It's literally in the "
+                f"{troubleshooting_channel_mention} channel which you should be reading.")
     else:
-        return f"Thank you for attaching the logs! Someone from the DCS Olympus Team will assist you eventually. In the meantime, please check the {troubleshooting_channel_mention} channel and read everything there to ensure you have followed the instructions."
+        return (f"Thank you for attaching the logs! Someone from the DCS Olympus Team will assist you eventually. "
+                f"In the meantime, please check the {troubleshooting_channel_mention} channel and read everything "
+                f"there to ensure you have followed the instructions.")
