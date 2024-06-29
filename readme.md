@@ -20,7 +20,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 ### First Rite: Direct Invocation
 1. Clone the sacred repository:
 
-```git clone https://github.com/yourusername/olympus-support-servo-skull.git cd olympus-support-servo-skull```
+```git clone https://github.com/Shredmetal/olympus_discord_bot_python.git```
 
 2. Anoint with dependencies:
 
