@@ -80,10 +80,24 @@ def register_commands(bot):
         )
 
         await thread.send(
-            f"{interaction.user.mention} Welcome to your support thread. Before proceeding, please ensure you have read "
-            f"all the information in the {troubleshooting_channel_mention} channel.\n\n"
-            f"Once you've done that, please upload your Olympus_log.txt and dcs.log files here. After uploading, someone "
-            f"from the DCS Olympus team will eventually get to you."
+            f"{interaction.user.mention} Welcome to your support thread. Before proceeding, please ensure you have read"
+            f" all the information in the {troubleshooting_channel_mention} channel. This means that you should:\n\n"
+            f"Read through the [Installation Guide](https://github.com/Pax1601/DCSOlympus/wiki) to ensure you have "
+            f"setup Olympus correctly.\n\n"
+            f"Read through [Setup Troubleshooting](https://github.com/Pax1601/DCSOlympus/wiki/Setup-Troubleshooting) "
+            f"for common issues and solutions.\n\n"
+            f"Read through the [Olympus User Guide](https://discord.com/channels/1068427668887969792/1185842396873900032/1185842495918194738)"
+            f" to learn how to use Olympus.\n\n"
+            f"If you're still having issues after trying the steps above, please provide the following information:\n"
+            f"• A detailed description of your issue\n"
+            f"• Your Olympus log file (located at `<user home folder>\\AppData\\Local\\Temp\\Olympus_log.txt`)\n"
+            f"• Your DCS log file (located at `<DCS Saved Games folder>\\Logs\\dcs.log`)\n"
+            f"• Screenshots of any relevant screens or issues\n"
+            f"• Any other pertinent information\n\n"
+            f"Please upload your Olympus_log.txt and dcs.log files here, which are normally found at the file paths "
+            f"provided above. "
+            f"After uploading, someone from the DCS Olympus team will eventually get to you. If you do not provide the "
+            f"log files, the DCS Olympus Team will not be notified that you have an issue."
         )
 
         set_thread_state(thread.id, ThreadState.AWAITING_LOGS)
