@@ -1,7 +1,7 @@
 import discord
 from ..utils.helper_functions import check_missing_files, generate_response_message
 from ..utils.online_resources import get_random_gif
-from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID
+from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID, PANTHEON_CHANNEL_ID
 from ..utils.enums import ThreadState
 from ..core.shared_state import get_thread_state, set_thread_state
 from ..core.tasks import cleanup_old_threads
@@ -45,6 +45,7 @@ def register_events(bot):
 
                         if not missing_files:
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
+                            await notify_pantheon(bot, message.channel, message.author)
                     else:
                         await request_logs(message.channel)
                 elif current_state == ThreadState.LOGS_RECEIVED:
@@ -62,3 +63,12 @@ async def request_logs(channel):
     random_gif = get_random_gif()
     reminder_message = "Please upload the required log files (Olympus_log.txt and dcs.log).\n" + random_gif
     await channel.send(reminder_message)
+
+async def notify_pantheon(bot, thread, user):
+    pantheon_channel = bot.get_channel(PANTHEON_CHANNEL_ID)
+    if pantheon_channel:
+        user_identifier = f"{user.name}#{user.discriminator}"
+        await pantheon_channel.send(
+            f"Support request received with logs at {thread.mention} from user: {user_identifier}")
+    else:
+        print(f"OLYMPUS DEBUG: Could not find the Pantheon channel with ID {PANTHEON_CHANNEL_ID}")
