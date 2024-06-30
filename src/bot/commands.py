@@ -3,6 +3,12 @@ from discord.ext import commands
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
 from ..core.shared_state import set_thread_state
+import traceback
+import logging
+import asyncio
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def register_commands(bot):
@@ -25,14 +31,47 @@ def register_commands(bot):
                 )
             return
 
+        # Permission check
+        if not interaction.guild.me.guild_permissions.create_public_threads:
+            await interaction.response.send_message(
+                content="I don't have permission to create threads. Please contact an administrator.",
+                ephemeral=True
+            )
+            return
+
+        # Channel type check
+        if not isinstance(interaction.channel, (discord.TextChannel, discord.ForumChannel)):
+            await interaction.response.send_message(
+                content="Threads can only be created in text or forum channels.",
+                ephemeral=True
+            )
+            return
+
         troubleshooting_channel_mention = f"<#{TROUBLESHOOTING_CHANNEL_ID}>"
 
         thread_name = f"Support for {interaction.user.name}"
+
         try:
-            thread = await interaction.channel.create_thread(name=thread_name, auto_archive_duration=1440)
-        except discord.HTTPException:
-            await interaction.response.send_message(content="Failed to create support thread. Please try again later.",
-                                                    ephemeral=True)
+            thread = await interaction.channel.create_thread(
+                name=thread_name,
+                auto_archive_duration=1440,
+                type=discord.ChannelType.public_thread
+            )
+        except discord.Forbidden as e:
+            logger.error(f"Forbidden error: {e}")
+            await interaction.followup.send(
+                content="I don't have permission to create threads. Please check channel and server settings.",
+                ephemeral=True)
+            return
+        except discord.HTTPException as e:
+            logger.error(f"HTTP error: {e}")
+            await interaction.followup.send(
+                content="Failed to create thread due to a network error. Please try again later.", ephemeral=True)
+            return
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}")
+            await interaction.followup.send(content="An unexpected error occurred. Please try again later.",
+                                            ephemeral=True)
             return
 
         await interaction.response.send_message(
