@@ -3,9 +3,8 @@ from discord.ext import commands
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
 from ..core.shared_state import set_thread_state
-import traceback
 import logging
-import asyncio
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
