@@ -45,6 +45,7 @@ def register_events(bot):
 
                         if not missing_files:
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
+                            # TODO call log_checker from helper functions after that has been implemented
                             await notify_pantheon(bot, message.channel, message.author)
                     else:
                         response_message = generate_response_message(None, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
