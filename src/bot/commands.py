@@ -86,7 +86,7 @@ def register_commands(bot):
             f"setup Olympus correctly.\n\n"
             f"Read through [Setup Troubleshooting](https://github.com/Pax1601/DCSOlympus/wiki/Setup-Troubleshooting) "
             f"for common issues and solutions.\n\n"
-            f"Read through the [Olympus User Guide](https://discord.com/channels/1068427668887969792/1185842396873900032/1185842495918194738)"
+            f"Read through the [Olympus User Guide](https://github.com/Pax1601/DCSOlympus/wiki/2.-User-Guide)"
             f" to learn how to use Olympus.\n\n"
             f"If you're still having issues after trying the steps above, please provide the following information:\n"
             f"• A detailed description of your issue\n"
