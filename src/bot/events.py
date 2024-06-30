@@ -47,22 +47,19 @@ def register_events(bot):
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
                             await notify_pantheon(bot, message.channel, message.author)
                     else:
-                        await request_logs(message.channel)
+                        response_message = generate_response_message(None, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
+                        await message.channel.send(response_message)
                 elif current_state == ThreadState.LOGS_RECEIVED:
                     return
                 else:
                     # If the thread state is not set or in an unexpected state, set it to AWAITING_LOGS
                     set_thread_state(thread_id, ThreadState.AWAITING_LOGS)
-                    await request_logs(message.channel)
+                    response_message = generate_response_message(None, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
+                    await message.channel.send(response_message)
 
         # This line is important to process commands
         await bot.process_commands(message)
 
-
-async def request_logs(channel):
-    random_gif = get_random_gif()
-    reminder_message = "Please upload the required log files (Olympus_log.txt and dcs.log).\n" + random_gif
-    await channel.send(reminder_message)
 
 async def notify_pantheon(bot, thread, user):
     pantheon_channel = bot.get_channel(PANTHEON_CHANNEL_ID)
