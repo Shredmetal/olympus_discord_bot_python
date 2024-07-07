@@ -20,17 +20,13 @@ def register_events(bot):
 
     @bot.event
     async def on_message(message):
-        # Check if the message is in a thread
         if isinstance(message.channel, discord.Thread):
-            # Check if it's a support thread
             if message.channel.name.startswith("Support for"):
                 thread_id = message.channel.id
 
-                # Ignore messages from the bot itself
                 if message.author == bot.user:
                     return
 
-                # Get the current thread state, default to AWAITING_LOGS if not set
                 current_state = get_thread_state(thread_id)
 
                 if current_state == ThreadState.AWAITING_LOGS:
@@ -52,13 +48,13 @@ def register_events(bot):
                         await message.channel.send(response_message)
                 elif current_state == ThreadState.LOGS_RECEIVED:
                     return
+                elif current_state == ThreadState.CLOSED:
+                    return
                 else:
-                    # If the thread state is not set or in an unexpected state, set it to AWAITING_LOGS
                     set_thread_state(thread_id, ThreadState.AWAITING_LOGS)
                     response_message = generate_response_message(None, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
                     await message.channel.send(response_message)
 
-        # This line is important to process commands
         await bot.process_commands(message)
 
 
