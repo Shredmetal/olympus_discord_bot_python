@@ -29,9 +29,9 @@ class LogOptionsView(discord.ui.View):
 
     async def handle_no_dcs_log(self, interaction: discord.Interaction):
         message = (f"If you do not have dcs.log, you do not have DCS installed. DCS Olympus is a mod for DCS. "
-                   f"If you do not have DCS installed, then you are not able to use DCS. Please ensure that you have "
-                   f"installed DCS, and follow the DCS Olympus setup instructions carefully. This thread will now "
-                   f"be closed. If you experience issues thereafter, please use the '/support' command in the "
+                   f"If you do not have DCS installed, then you are not able to use DCS Olympus. Please ensure that "
+                   f"you have installed DCS, and follow the DCS Olympus setup instructions carefully. This thread will "
+                   f"now be closed. If you experience issues thereafter, please use the '/support' command in the "
                    f"<#{COMMUNITY_SUPPORT_CHANNEL_ID}> channel again")
         await interaction.response.send_message(message)
         set_thread_state(interaction.channel.id, ThreadState.CLOSED)
@@ -41,7 +41,10 @@ class LogOptionsView(discord.ui.View):
         message = ("A common issue our users experience is that DCS Olympus is not installed in the right place. "
                    "Please uninstall DCS Olympus using 'Add/Remove Programs' in Windows, and install it in the correct "
                    "directory, which is the DCS directory in saved games. That directory should look something like "
-                   "this 'C:\\Users\\<your-username>\\Saved Games\\DCS.openbeta'.")
+                   r"this 'C:\Users\<your-username>\Saved Games\DCS.openbeta', unless if you have customised your DCS"
+                   " install paths. \n\n DO NOT JUST CLICK THROUGH THE PROVIDED INSTALLER. We gave you an installer for"
+                   " a reason. Make use of it. Ensure that the correct directory is selected or you will get the same "
+                   "issue over and over again.")
         await interaction.response.send_message(message, view=ResolutionView())
 
 
