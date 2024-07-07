@@ -11,6 +11,7 @@ bot = commands.Bot(command_prefix='/', intents=INTENTS)
 register_commands(bot)
 register_events(bot)
 
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
