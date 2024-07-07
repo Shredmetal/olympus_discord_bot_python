@@ -1,7 +1,7 @@
 import discord
 from ..core.shared_state import set_thread_state, get_thread_state
 from ..utils.enums import ThreadState
-from ..utils.constants import PANTHEON_CHANNEL_ID, COMMUNITY_SUPPORT_CHANNEL_ID
+from ..utils.constants import PANTHEON_CHANNEL_ID, COMMUNITY_SUPPORT_CHANNEL_ID, THREAD_CLOSED_STRING
 
 
 class LogOptionsView(discord.ui.View):
@@ -10,8 +10,8 @@ class LogOptionsView(discord.ui.View):
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         thread_state = get_thread_state(interaction.channel.id)
-        if thread_state == ThreadState.CLOSED:
-            await interaction.response.send_message("This thread has been closed and is no longer active.", ephemeral=True)
+        if thread_state == ThreadState.CLOSED or thread_state == ThreadState.LOGS_RECEIVED:
+            await interaction.response.send_message(THREAD_CLOSED_STRING, ephemeral=True)
             return False
         return True
 
@@ -41,7 +41,7 @@ class LogOptionsView(discord.ui.View):
         message = ("A common issue our users experience is that DCS Olympus is not installed in the right place. "
                    "Please uninstall DCS Olympus using 'Add/Remove Programs' in Windows, and install it in the correct "
                    "directory, which is the DCS directory in saved games. That directory should look something like "
-                   r"this 'C:\Users\<your-username>\Saved Games\DCS.openbeta', unless if you have customised your DCS"
+                   r"this 'C:/Users/<your-username>/Saved Games/DCS.openbeta', unless if you have customised your DCS"
                    " install paths. \n\n DO NOT JUST CLICK THROUGH THE PROVIDED INSTALLER. We gave you an installer for"
                    " a reason. Make use of it. Ensure that the correct directory is selected or you will get the same "
                    "issue over and over again.")
@@ -55,13 +55,7 @@ class ResolutionView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         thread_state = get_thread_state(interaction.channel.id)
         if thread_state == ThreadState.CLOSED:
-            await interaction.response.send_message("This thread has been closed and is no longer active. "
-                                                    "Depending on your interactions above, this means you "
-                                                    "either need to follow the instructions and install / reinstall"
-                                                    " DCS (Olympus), or a member of the DCS Olympus Team "
-                                                    "is looking into your issue. Please be patient, as all of us have"
-                                                    " day jobs that need doing, which is how DCS Olympus is kept "
-                                                    "completely free for you.", ephemeral=True)
+            await interaction.response.send_message(THREAD_CLOSED_STRING, ephemeral=True)
             return False
         return True
 
