@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
+from ..utils.views import LogOptionsView
 from ..core.shared_state import set_thread_state
 import logging
 
@@ -97,7 +98,10 @@ def register_commands(bot):
             f"Please upload your Olympus_log.txt and dcs.log files here, which are normally found at the file paths "
             f"provided above. "
             f"After uploading, someone from the DCS Olympus team will eventually get to you. If you do not provide the "
-            f"log files, the DCS Olympus Team will not be notified that you have an issue."
+            f"log files, the DCS Olympus Team will not be notified that you have an issue. \n\n"
+            f"If, after LOOKING VERY CAREFULLY, you do not have the files, please use the buttons at the bottom of "
+            f"this message for the bot to take you through a basic troubleshooting flow.",
+            view=LogOptionsView()
         )
 
         set_thread_state(thread.id, ThreadState.AWAITING_LOGS)
