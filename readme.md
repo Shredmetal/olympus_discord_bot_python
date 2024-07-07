@@ -9,6 +9,10 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 - Dispatches holy reminders adorned with sacred pict-captures
 - Purges ancient support threads, as is the will of the Omnissiah
 - Restricts the invocation of aid to designated channels, as decreed by the Fabricator-General
+- Presents sacred buttons for users to declare their log file status
+- Provides divine guidance for those lacking the holy dcs.log
+- Offers sacred rites of resolution for those missing the blessed Olympus_log.txt
+- Seals threads with the Omnissiah's will when issues are resolved or abandoned
 
 ## Rites of Preparation
 - Python Engine, version 3.11 or greater, blessed by the Adeptus Mechanicus
@@ -76,13 +80,17 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 ```./deploy.sh``` OR ```sh deploy.sh```
 
 ## Calibration of the Machine Spirit
-- Adjust the `TROUBLESHOOTING_CHANNEL_ID` and `ALLOWED_CHANNEL_ID` in `bot.py` to align with the correct astropathic frequencies.
+- Adjust the `TROUBLESHOOTING_CHANNEL_ID`, `COMMUNITY_SUPPORT_CHANNEL_ID`, and `PANTHEON_CHANNEL_ID` in `constants.py` to align with the correct astropathic frequencies.
 - The sacred pict-captures in `online_resources.py` may be altered to better appease the machine spirits.
 
 ## Protocols of Utilisation
 - Invoke the `/support` command in the designated channel to forge a sanctified thread of assistance.
 - Present the holy log files `Olympus_log.txt` and `dcs.log` as offerings.
 - The servo-skull shall verify these digital sacrifices and respond as the Omnissiah wills.
+- If log files are absent, select the appropriate sacred button to receive divine guidance.
+- For those lacking dcs.log, heed the servo-skull's words on proper DCS installation.
+- If Olympus_log.txt is missing, follow the servo-skull's instructions for correct installation.
+- Declare whether the issue is resolved or persists using the provided sacred buttons.
 
 ## Rites of Contribution
 To improve this holy construct is to honour the Omnissiah. Follow these sacred steps:
