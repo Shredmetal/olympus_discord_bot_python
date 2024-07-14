@@ -20,7 +20,7 @@ def generate_response_message(missing_files: typing.List[str], troubleshooting_c
         return f"Please upload the required log files (Olympus_log.txt and dcs.log).\n{random_gif}"
     else:
         return (f"Thank you for attaching the logs! Someone from the DCS Olympus Team will assist you eventually. "
-                f"In the meantime, please check the {troubleshooting_channel_mention} channel make sure you have "
+                f"In the meantime, please check the {troubleshooting_channel_mention} channel, make sure you have "
                 f"followed the instructions there.")
 
 # TODO dcs.log check if the Olympus loading lines appear, In Olympus log file check for successful binding to the port
