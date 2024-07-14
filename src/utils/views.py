@@ -23,7 +23,7 @@ class LogOptionsView(discord.ui.View):
     async def no_olympus_log(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_no_olympus_log(interaction)
 
-    @discord.ui.button(label="I do not have both logs", style=discord.ButtonStyle.red, custom_id="no_both_logs")
+    @discord.ui.button(label="I do not have either log file", style=discord.ButtonStyle.red, custom_id="no_both_logs")
     async def no_both_logs(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_no_dcs_log(interaction)
 
@@ -38,13 +38,10 @@ class LogOptionsView(discord.ui.View):
         await interaction.channel.edit(archived=True)
 
     async def handle_no_olympus_log(self, interaction: discord.Interaction):
-        message = ("A common issue our users experience is that DCS Olympus is not installed in the right place. "
-                   "Please uninstall DCS Olympus using 'Add/Remove Programs' in Windows, and install it in the correct "
-                   "directory, which is the DCS directory in saved games. That directory should look something like "
-                   r"this 'C:/Users/<your-username>/Saved Games/DCS.openbeta', unless if you have customised your DCS"
-                   " install paths. \n\n DO NOT JUST CLICK THROUGH THE PROVIDED INSTALLER. We gave you an installer for"
-                   " a reason. Make use of it. Ensure that the correct directory is selected or you will get the same "
-                   "issue over and over again.")
+        message = ("A common issue our users experience is that DCS Olympus is not installed in the right place. You "
+                   "can do so with ease through the provided Olympus Manager. Simply launch Olympus Manager and check "
+                   "that DCS Olympus has been installed for the DCS Olympus instance for which you are experiencing "
+                   "issues.")
         await interaction.response.send_message(message, view=ResolutionView())
 
 
@@ -73,3 +70,14 @@ class ResolutionView(discord.ui.View):
         await interaction.response.send_message("The DCS Olympus team has been notified and one of us will be with"
                                                 " you to look into this eventually.")
         set_thread_state(interaction.channel.id, ThreadState.CLOSED)
+
+    @discord.ui.button(label="I don't have olympus manager!", style=discord.ButtonStyle.blurple, custom_id="no_manager")
+    async def no_olympus_manager(self, interaction: discord.Interaction, button: discord.ui.Button):
+        message = ("Olympus Manager was introduced with DCS Olympus v1.0.4. It simplifies the installation and "
+                   "uninstallation process. So please, for the love of god, update your DCS Olympus. As usual, it is "
+                   "available on our releases page [here](https://github.com/Pax1601/DCSOlympus/releases)! It allows "
+                   "you to manage one or more DCS Olympus installations, which you may need if you have both the DCS "
+                   "client and a DCS Server installed. If you installed DCS Olympus prior to v1.0.4, please uninstall "
+                   "it using using 'Add/Remove Programs' in Windows and reinstall it using the Olympus Manager "
+                   "provided with v1.0.4")
+        await interaction.response.send_message(message, view=ResolutionView())
