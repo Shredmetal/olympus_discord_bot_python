@@ -1,6 +1,5 @@
 import discord
 from ..utils.helper_functions import check_missing_files, generate_response_message
-from ..utils.online_resources import get_random_gif
 from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID, PANTHEON_CHANNEL_ID
 from ..utils.enums import ThreadState
 from ..core.shared_state import get_thread_state, set_thread_state
