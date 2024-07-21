@@ -1,4 +1,6 @@
 import discord
+
+from ..buttons.logs_received_views import LogsReceivedView
 from ..utils.helper_functions import check_missing_files, generate_response_message
 from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID, PANTHEON_CHANNEL_ID
 from ..utils.enums import ThreadState
@@ -36,12 +38,15 @@ def register_events(bot):
                         response_message = generate_response_message(missing_files,
                                                                      f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
 
-                        await message.channel.send(response_message)
+
 
                         if not missing_files:
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
+                            await message.channel.send(response_message, view=LogsReceivedView())
                             # TODO call log_checker from helper functions after that has been implemented
                             await notify_pantheon(bot, message.channel, message.author)
+                        else:
+                            await message.channel.send(response_message)
                     else:
                         response_message = generate_response_message(None, f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
                         await message.channel.send(response_message)
