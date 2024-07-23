@@ -4,8 +4,9 @@
 Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the manifestation and control of the Olympus Support Servo-skull, a blessed automaton designed to shepherd the Machine God's flock in their hour of need.
 
 ## Canticles of Capability
+
 - Forges hallowed threads of support, sanctified by the Machine God
-- Scrutinises the purity of log file offerings
+- Scrutinises the purity of log file offerings with binary-blessed regex incantations
 - Dispatches holy reminders adorned with sacred pict-captures
 - Purges ancient support threads, as is the will of the Omnissiah
 - Restricts the invocation of aid to designated channels, as decreed by the Fabricator-General
@@ -13,6 +14,13 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 - Provides divine guidance for those lacking the holy dcs.log
 - Offers sacred rites of resolution for those missing the blessed Olympus_log.txt
 - Seals threads with the Omnissiah's will when issues are resolved or abandoned
+- Detects the taint of access denial within the holy Olympus_log.txt, offering litanies of rectification
+- Bestows sacred buttons of common ailments, each imbued with the Machine God's wisdom:
+  - Forgotten username/password reset rites
+  - Rituals for unsticking the Olympus connection
+  - Incantations to banish the half white screen plague
+  - Prayers for the visibility of units and their creation
+  - Blessings to reveal modded aircraft in the sacred spawn list
 
 ## Rites of Preparation
 - Python Engine, version 3.11 or greater, blessed by the Adeptus Mechanicus
@@ -91,6 +99,15 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 - For those lacking dcs.log, heed the servo-skull's words on proper DCS installation.
 - If Olympus_log.txt is missing, follow the servo-skull's instructions for correct installation.
 - Declare whether the issue is resolved or persists using the provided sacred buttons.
+- Should the Olympus_log.txt bear the mark of access denial, the servo-skull shall provide sacred rites to appease the machine spirits and grant access to the holy ports.
+- Heed the wisdom of the binary-blessed parsing, for it reveals the true nature of your digital offerings and guides the path to resolution.
+- Upon successful offering of both sacred log files, the servo-skull shall present buttons of common ailments:
+  - Invoke the username/password reset rites if your access codes elude you
+  - Perform the connection unsticking ritual if Olympus refuses to establish a link
+  - Chant the incantations to banish the white screen plague should it afflict your visual feed
+  - Offer prayers for unit visibility and creation if the battlefield appears barren
+  - Seek blessings to reveal modded aircraft in your spawn list if they remain hidden
+- Select the appropriate sacred button to receive tailored guidance from the Machine God's own databanks
 
 ## Rites of Contribution
 To improve this holy construct is to honour the Omnissiah. Follow these sacred steps:
