@@ -3,7 +3,7 @@ import discord
 from src.buttons.problem_resolution_view import ResolutionView
 from src.core.shared_state import set_thread_state, get_thread_state
 from src.utils.enums import ThreadState
-from src.utils.constants import PANTHEON_CHANNEL_ID, COMMUNITY_SUPPORT_CHANNEL_ID, THREAD_CLOSED_STRING
+from src.utils.constants import SUPPORT_REQUESTS_ID, COMMUNITY_SUPPORT_CHANNEL_ID, THREAD_CLOSED_STRING
 
 
 class LogsReceivedView(discord.ui.View):
