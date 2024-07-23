@@ -1,7 +1,7 @@
 import discord
 
 from src.core.shared_state import get_thread_state, set_thread_state
-from src.utils.constants import THREAD_CLOSED_STRING, PANTHEON_CHANNEL_ID
+from src.utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 from src.utils.enums import ThreadState
 
 
@@ -24,7 +24,7 @@ class ResolutionView(discord.ui.View):
 
     @discord.ui.button(label="That did not resolve my issue", style=discord.ButtonStyle.red, custom_id="issue_not_resolved")
     async def issue_not_resolved(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pantheon_channel = interaction.client.get_channel(PANTHEON_CHANNEL_ID)
+        pantheon_channel = interaction.client.get_channel(SUPPORT_REQUESTS_ID)
         if pantheon_channel:
             await pantheon_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}")
         await interaction.response.send_message("The DCS Olympus team has been notified and one of us will be with"
