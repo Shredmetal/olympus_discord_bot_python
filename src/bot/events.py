@@ -1,6 +1,8 @@
 import discord
 
 from ..buttons.logs_received_views import LogsReceivedView
+from ..buttons.problem_resolution_view import ResolutionView
+from ..log_parsing.log_processor import process_attachments
 from ..utils.helper_functions import check_missing_files, generate_response_message
 from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID, PANTHEON_CHANNEL_ID
 from ..utils.enums import ThreadState
@@ -38,12 +40,29 @@ def register_events(bot):
                         response_message = generate_response_message(missing_files,
                                                                      f"<#{TROUBLESHOOTING_CHANNEL_ID}>")
 
-
-
                         if not missing_files:
+
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
                             await message.channel.send(response_message, view=LogsReceivedView())
-                            # TODO call log_checker from helper functions after that has been implemented
+
+                            analysis_results = await process_attachments(attachments)
+
+                            for log_file, result in analysis_results.items():
+                                if log_file == "Olympus_log.txt":
+                                    if result:  # This is now a string
+                                        await message.channel.send(result, view=ResolutionView())
+                                    else:
+                                        await message.channel.send(f"No issues found in {log_file}")
+                                # TODO Implement the dcs.log parsing logic
+                                # elif log_file == "dcs.log":
+                                #     if result:  # This is still a list
+                                #         await message.channel.send(f"Issues found in {log_file}:")
+                                #         for issue in result:
+                                #             await message.channel.send(issue)
+                                #     else:
+                                #         await message.channel.send(f"No issues found in {log_file}")
+
+
                             await notify_pantheon(bot, message.channel, message.author)
                         else:
                             await message.channel.send(response_message)
