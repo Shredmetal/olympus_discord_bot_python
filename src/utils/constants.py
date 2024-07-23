@@ -1,5 +1,7 @@
 import discord
 
+# TODO provide a way to grab channel IDs from environment variables passed to docker image
+
 INTENTS = discord.Intents.default()
 INTENTS.message_content = True
 
