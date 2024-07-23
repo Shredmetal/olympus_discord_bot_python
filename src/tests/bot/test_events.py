@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import discord
 from ...bot.events import register_events, notify_pantheon
 from ...utils.enums import ThreadState
-from ...utils.constants import TROUBLESHOOTING_CHANNEL_ID, PANTHEON_CHANNEL_ID
+from ...utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 
 
 class TestEvents(unittest.TestCase):
@@ -102,7 +102,7 @@ class TestEvents(unittest.TestCase):
 
         self.run_coroutine(notify_pantheon(self.bot, thread, user))
 
-        self.bot.get_channel.assert_called_with(PANTHEON_CHANNEL_ID)
+        self.bot.get_channel.assert_called_with(SUPPORT_REQUESTS_ID)
         pantheon_channel.send.assert_awaited_with(
             "Support request received with logs at #thread-mention from user: TestUser#1234"
         )
@@ -112,7 +112,7 @@ class TestEvents(unittest.TestCase):
         self.run_coroutine(notify_pantheon(self.bot, thread, user))
 
         mock_print.assert_called_with(
-            f"OLYMPUS DEBUG: Could not find the Pantheon channel with ID {PANTHEON_CHANNEL_ID}")
+            f"OLYMPUS DEBUG: Could not find the Pantheon channel with ID {SUPPORT_REQUESTS_ID}")
 
 
 if __name__ == '__main__':

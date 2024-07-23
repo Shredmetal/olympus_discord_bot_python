@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
-from ..utils.views import LogOptionsView
+from src.buttons.logs_views import InitialView
 from ..core.shared_state import set_thread_state
 import logging
 
@@ -91,8 +91,8 @@ def register_commands(bot):
             f" to learn how to use Olympus.\n\n"
             f"If you're still having issues after trying the steps above, please provide the following information:\n"
             f"• A detailed description of your issue\n"
-            f"• Your Olympus log file (located at `<user home folder>\\AppData\\Local\\Temp\\Olympus_log.txt`)\n"
-            f"• Your DCS log file (located at `<DCS Saved Games folder>\\Logs\\dcs.log`)\n"
+            f"• Your Olympus log file (located at `<DCS Instance Saved Games folder>\\Logs\\Olympus_log.txt`)\n"
+            f"• Your DCS log file (located at `<DCS Instance Saved Games folder>\\Logs\\dcs.log`)\n"
             f"• Screenshots of any relevant screens or issues\n"
             f"• Any other pertinent information\n\n"
             f"Please upload your Olympus_log.txt and dcs.log files here, which are normally found at the file paths "
@@ -101,7 +101,7 @@ def register_commands(bot):
             f"log files, the DCS Olympus Team will not be notified that you have an issue. \n\n"
             f"If, after LOOKING VERY CAREFULLY, you do not have the files, please use the buttons at the bottom of "
             f"this message for the bot to take you through a basic troubleshooting flow.",
-            view=LogOptionsView()
+            view=InitialView()
         )
 
         set_thread_state(thread.id, ThreadState.AWAITING_LOGS)
