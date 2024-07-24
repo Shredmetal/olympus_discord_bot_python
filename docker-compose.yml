@@ -1,5 +1,11 @@
-version: "3.8"
+version: '2.10.2'
+
 services:
-  bot:
+  olympus-discord-bot:
     build: .
-    container_name: olympus-discord-bot-docker-compose
+    image: shredmetal/olympus-discord-bot:latest
+    environment:
+      - DISCORD_BOT_TOKEN
+      - TROUBLESHOOTING_CHANNEL_ID
+      - COMMUNITY_SUPPORT_CHANNEL_ID
+      - SUPPORT_REQUESTS_ID

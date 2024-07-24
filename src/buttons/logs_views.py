@@ -29,6 +29,12 @@ class InitialView(discord.ui.View):
     async def no_both_logs(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_no_dcs_log(interaction)
 
+    @discord.ui.button(label="I cannot connect and have ECONNREFUSED in the Olympus server command line screen",
+                       style=discord.ButtonStyle.blurple,
+                       custom_id="econnrefused")
+    async def econnrefused(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_econnrefused(interaction)
+
     async def handle_no_dcs_log(self, interaction: discord.Interaction):
         message = (f"If you do not have dcs.log, you do not have DCS installed. DCS Olympus is a mod for DCS. "
                    f"If you do not have DCS installed, then you are not able to use DCS Olympus. Please ensure that "
@@ -44,4 +50,12 @@ class InitialView(discord.ui.View):
                    "can do so with ease through the provided Olympus Manager. Simply launch Olympus Manager and check "
                    "that DCS Olympus has been installed for the DCS Olympus instance for which you are experiencing "
                    "issues.")
+        await interaction.response.send_message(message, view=ResolutionView())
+
+    async def handle_econnrefused(self, interaction: discord.Interaction):
+        message = ("You did not use netsh to remove a URL reservation. \n\nThis was specified in the installation "
+                   "instructions. Either way, in DCS Olympus v1.0.4, we have removed the need to use the netsh spell "
+                   "in your command line spellcasting interface, however, you will need to remove it if you have done "
+                   "so previously. Please follow the instructions "
+                   "[here](https://github.com/Pax1601/DCSOlympus/wiki#123-removing-the-net-shell-netsh-rule).")
         await interaction.response.send_message(message, view=ResolutionView())

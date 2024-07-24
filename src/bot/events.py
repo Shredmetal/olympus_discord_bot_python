@@ -47,21 +47,22 @@ def register_events(bot):
 
                             analysis_results = await process_attachments(attachments)
 
-                            for log_file, result in analysis_results.items():
+                            for log_file, results in analysis_results.items():
                                 if log_file == "Olympus_log.txt":
-                                    if result:  # This is now a string
-                                        await message.channel.send(result, view=ResolutionView())
+                                    if results:
+                                        for result in results:
+                                            await message.channel.send(result, view=ResolutionView())
                                     else:
                                         await message.channel.send(f"No issues found in {log_file}")
+
                                 # TODO Implement the dcs.log parsing logic
                                 # elif log_file == "dcs.log":
-                                #     if result:  # This is still a list
+                                #     if result:
                                 #         await message.channel.send(f"Issues found in {log_file}:")
                                 #         for issue in result:
                                 #             await message.channel.send(issue)
                                 #     else:
                                 #         await message.channel.send(f"No issues found in {log_file}")
-
 
                             await notify_pantheon(bot, message.channel, message.author)
                         else:

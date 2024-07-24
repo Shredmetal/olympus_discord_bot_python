@@ -29,33 +29,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 
 ## Rituals of Implementation - The individual tech-priest may select the rite he deems most appropriate for the Omnissiah's blessing
 
-### First Rite: Direct Invocation
-
-1. Clone the sacred repository:
-
-```git clone https://github.com/Shredmetal/olympus_discord_bot_python.git```
-
-2. Anoint with dependencies:
-
-```pip install -r requirements.txt```
-
-3. Whisper the sacred token to the machine spirits:
-
-```export DISCORD_BOT_TOKEN='your_bot_token_here'```
-
-4. Awaken the servo-skull:
-
-```python bot.py```
-
-### Second Rite: Containerised Summoning
-
-1. Clone the sacred repository as before
-
-2. Intone the docker-compose incantation:
-
-```docker-compose up --build -d```
-
-### Third Rite: Invocation from the Grand Cogitator Repository
+### First Rite: Invocation from the Grand Cogitator Repository
 
 1. Ensure Docker is installed on your system.
 
@@ -65,17 +39,23 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 
 3. Run the container:
 
-```docker run -d --name olympus-discord-bot --restart unless-stopped shredmetal/olympus-discord-bot:latest```
+```
+docker run -e DISCORD_BOT_TOKEN=your-bot-token \
+           -e TROUBLESHOOTING_CHANNEL_ID=troubleshooting-channel-id \
+           -e COMMUNITY_SUPPORT_CHANNEL_ID=community-support-channel-id \
+           -e SUPPORT_REQUESTS_ID=support-requests-channel-id \
+           shredmetal/olympus-discord-bot:latest
+```
 
 4. To stop the bot:
 
-```docker stop olympus-discord-bot```
+```docker stop shredmetal/olympus-discord-bot:latest```
 
 5. To start the bot again:
 
-```docker start olympus-discord-bot```
+```docker start shredmetal/olympus-discord-bot:latest```
 
-### Fourth Rite: The Deployment Litany
+### Second Rite: The Deployment Litany
 
 1. Clone the sacred repository
 
@@ -88,7 +68,7 @@ Hearken, servants of the Omnissiah! Herein lies the sacred blueprint for the man
 ```./deploy.sh``` OR ```sh deploy.sh```
 
 ## Calibration of the Machine Spirit
-- Adjust the `TROUBLESHOOTING_CHANNEL_ID`, `COMMUNITY_SUPPORT_CHANNEL_ID`, and `PANTHEON_CHANNEL_ID` in `constants.py` to align with the correct astropathic frequencies.
+- Adjust the `TROUBLESHOOTING_CHANNEL_ID`, `COMMUNITY_SUPPORT_CHANNEL_ID`, and `SUPPORT_REQUESTS_ID` in `constants.py` to align with the correct astropathic frequencies.
 - The sacred pict-captures in `online_resources.py` may be altered to better appease the machine spirits.
 
 ## Protocols of Utilisation
