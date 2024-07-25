@@ -25,5 +25,8 @@ class CommonIssuesListView(BaseView):
                    "\t4. I am logged into Olympus and can see units moving, but can't create any\n"
                    "\t5. I do not see aircraft I got from a mod in my unit spawn list\n"
                    "\t6. Olympus isn't working, I have the Olympus server screen (black and white with text) and I "
-                   "see the word [ECONNREFUSED] on it\n")
+                   "see the word [ECONNREFUSED] on it\n"
+                   "\t7. I am navigating to what I think is the correct URL but the browser tells me it cannot resolve "
+                   "the URL, or that it can't find it, or something of that sort\n"
+                   "\t8. My issue is not listed\n")
         await interaction.response.send_message(message, view=CommonIssuesView(resolution_type=self.log_status))
