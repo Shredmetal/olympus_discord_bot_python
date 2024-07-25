@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
+
+from ..buttons.base_view import create_base_view
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
-from src.buttons.logs_view import InitialView
 from ..core.shared_state import set_thread_state
 import logging
 
@@ -101,7 +102,7 @@ def register_commands(bot):
             f"log files, the DCS Olympus Team will not be notified that you have an issue. \n\n"
             f"If, after LOOKING VERY CAREFULLY, you do not have the files, please use the buttons at the bottom of "
             f"this message for the bot to take you through a basic troubleshooting flow.",
-            view=InitialView()
+            view=create_base_view(view_type="combined", log_status="no_logs")
         )
 
         set_thread_state(thread.id, ThreadState.AWAITING_LOGS)
