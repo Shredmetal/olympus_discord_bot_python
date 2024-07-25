@@ -3,7 +3,7 @@ import discord
 from ..buttons.base_view import create_base_view
 from ..buttons.problem_resolution_view import ResolutionView
 from ..log_parsing.log_processor import process_attachments
-from ..utils.helper_functions import check_missing_files, generate_response_message
+from ..utils.missing_file_checker_functions import check_missing_files, generate_response_message
 from ..utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 from ..utils.enums import ThreadState
 from ..core.shared_state import get_thread_state, set_thread_state
