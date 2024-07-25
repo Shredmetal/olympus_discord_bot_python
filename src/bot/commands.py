@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from ..utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..utils.enums import ThreadState
-from src.buttons.logs_views import InitialView
+from src.buttons.logs_view import InitialView
 from ..core.shared_state import set_thread_state
 import logging
 
