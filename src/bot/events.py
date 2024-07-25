@@ -1,7 +1,7 @@
 import discord
 
 from .events_utils.events_utils import handle_awaiting_logs, handle_no_olympus_logs
-from ..main_utils.missing_file_checker_functions import generate_response_message
+from src.bot.events_utils.missing_file_checker_functions import generate_response_message
 from ..main_utils.constants import TROUBLESHOOTING_CHANNEL_ID
 from ..main_utils.enums import ThreadState
 from src.main_utils.shared_state import get_thread_state, set_thread_state
