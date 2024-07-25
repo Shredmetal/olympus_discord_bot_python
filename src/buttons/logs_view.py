@@ -1,10 +1,10 @@
 import discord
 
 from src.buttons.base_view import BaseView, create_base_view
-from src.main_utils.shared_state import set_thread_state
-from src.main_utils.enums import ThreadState
-from src.main_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID
-from src.main_utils.online_resources import get_random_gif
+from src.shared_utils.shared_state import set_thread_state
+from src.shared_utils.enums import ThreadState
+from src.shared_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID
+from src.shared_utils.online_resources import get_random_gif
 
 
 class InitialView(BaseView):

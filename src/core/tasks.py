@@ -1,6 +1,6 @@
 import discord
 from discord.ext import tasks
-from src.main_utils.shared_state import thread_states
+from src.shared_utils.shared_state import thread_states
 
 
 @tasks.loop(hours=24)

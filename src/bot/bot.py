@@ -5,7 +5,7 @@ from .events import register_events
 from ..buttons.common_issues_buttons.common_issues_list_view import CommonIssuesListView
 from ..buttons.common_issues_buttons.common_issues_view import CommonIssuesView
 from ..buttons.logs_view import InitialView
-from ..main_utils.constants import INTENTS
+from ..shared_utils.constants import INTENTS
 from ..buttons.problem_resolution_view import ResolutionView
 
 bot = commands.Bot(command_prefix='/', intents=INTENTS)

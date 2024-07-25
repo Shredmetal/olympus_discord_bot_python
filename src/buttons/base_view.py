@@ -4,9 +4,9 @@ from typing import Literal
 
 from src.buttons.common_issues_buttons.common_issues_list_view import CommonIssuesListView
 from src.buttons.logs_view import InitialView
-from src.main_utils.shared_state import get_thread_state
-from src.main_utils.constants import THREAD_CLOSED_STRING
-from src.main_utils.enums import ThreadState
+from src.shared_utils.shared_state import get_thread_state
+from src.shared_utils.constants import THREAD_CLOSED_STRING
+from src.shared_utils.enums import ThreadState
 
 
 class BaseView(discord.ui.View):

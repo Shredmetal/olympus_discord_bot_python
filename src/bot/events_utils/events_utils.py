@@ -1,9 +1,9 @@
 from src.buttons.base_view import create_base_view
 from src.buttons.problem_resolution_view import ResolutionView
-from src.main_utils.shared_state import set_thread_state
+from src.shared_utils.shared_state import set_thread_state
 from src.log_parsing.log_processor import process_attachments
-from src.main_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
-from src.main_utils.enums import ThreadState
+from src.shared_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
+from src.shared_utils.enums import ThreadState
 from src.bot.events_utils.missing_file_checker_functions import generate_response_message, check_missing_files
 
 

@@ -6,8 +6,8 @@ import discord
 
 from src.bot.events_utils.events_utils import notify_support_requests
 from ...bot.events import register_events
-from ...main_utils.enums import ThreadState
-from ...main_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
+from ...shared_utils.enums import ThreadState
+from ...shared_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 
 
 class TestEvents(unittest.TestCase):
@@ -90,7 +90,7 @@ class TestEvents(unittest.TestCase):
 
         self.bot.process_commands.assert_awaited()
 
-    @patch('discord.main_utils.get')
+    @patch('discord.shared_utils.get')
     @patch('src.bot.events.print')  # Assuming the debug message is printed, not logged
     def test_notify_pantheon(self, mock_print, mock_get):
         pantheon_channel = AsyncMock()

@@ -2,9 +2,9 @@ import discord
 from typing import Literal
 
 from src.buttons.problem_resolution_view import ResolutionView
-from src.main_utils.shared_state import get_thread_state, set_thread_state
-from src.main_utils.enums import ThreadState
-from src.main_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
+from src.shared_utils.shared_state import get_thread_state, set_thread_state
+from src.shared_utils.enums import ThreadState
+from src.shared_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 
 
 class CommonIssuesView(discord.ui.View):

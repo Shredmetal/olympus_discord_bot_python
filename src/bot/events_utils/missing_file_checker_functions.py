@@ -1,8 +1,8 @@
 import typing
 import discord
 
-from src.main_utils.enums import ThreadState
-from src.main_utils.online_resources import get_random_gif
+from src.shared_utils.enums import ThreadState
+from src.shared_utils.online_resources import get_random_gif
 
 
 def check_missing_files(attachments: typing.List[discord.Attachment], required_files: typing.List[str]) -> typing.List[str]:
