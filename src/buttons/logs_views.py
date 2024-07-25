@@ -48,4 +48,5 @@ class InitialView(discord.ui.View):
                    "issues. Please send us your dcs.log anyway to help us resolve your problem. In the meantime, "
                    "please look through the common issues list by clicking on the list of common issues button below. "
                    f"{random_gif}")
+        set_thread_state(interaction.channel.id, ThreadState.NO_OLYMPUS_LOGS)
         await interaction.response.send_message(message, view=CommonIssuesListView(log_status="no_logs"))
