@@ -3,8 +3,8 @@ from typing import Literal
 
 from src.buttons.problem_resolution_view import ResolutionView
 from src.core.shared_state import get_thread_state, set_thread_state
-from src.utils.enums import ThreadState
-from src.utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
+from src.main_utils.enums import ThreadState
+from src.main_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 
 
 class CommonIssuesView(discord.ui.View):
@@ -127,6 +127,9 @@ class CommonIssuesView(discord.ui.View):
             if thread_state == ThreadState.LOGS_RECEIVED:
                 await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
                                                     f"has provided logs.")
+            elif thread_state == ThreadState.DCS_LOG_RECEIVED:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has provided dcs.log but no Olympus_log.txt.")
             else:
                 await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
                                                     f"has not provided logs.")
