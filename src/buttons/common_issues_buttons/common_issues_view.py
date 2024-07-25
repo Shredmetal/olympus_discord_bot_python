@@ -9,11 +9,9 @@ from src.utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 
 class CommonIssuesView(discord.ui.View):
     def __init__(self,
-                 resolution_type: Literal["normal", "no_logs"] = "normal",
-                 manager_mentioned: Literal["yes", "no"] = "yes"):
+                 resolution_type: Literal["normal", "no_logs"] = "normal"):
         super().__init__(timeout=None)
         self.resolution_type = resolution_type
-        self.manager_mentioned: manager_mentioned
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         thread_state = get_thread_state(interaction.channel.id)
@@ -22,9 +20,13 @@ class CommonIssuesView(discord.ui.View):
             return False
         return True
 
-    def get_resolution_view(self) -> ResolutionView:
-        if self.resolution_type == 'no_logs':
+    def get_resolution_view(self, manager_mentioned="yes") -> ResolutionView:
+        if self.resolution_type == "no_logs" and manager_mentioned == "no":
+            return ResolutionView(include_not_resolved=False, include_no_manager=False)
+        elif self.resolution_type == "no_logs":
             return ResolutionView(include_not_resolved=False)
+        elif manager_mentioned == "no":
+            return ResolutionView(include_not_resolved_no_logs=False, include_no_manager=False)
         else:
             return ResolutionView(include_not_resolved_no_logs=False)
 
@@ -86,12 +88,12 @@ class CommonIssuesView(discord.ui.View):
                    "mind and the team does not have the time to test every other browser in existence. Additionally, "
                    "some password managers / apps may present an alert bar at the top of the page which can cause "
                    "this issue. Dismiss or close the alert and see if it solves the issue.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_mist_problem(self, interaction: discord.Interaction):
         message = ("This is usually caused by some sort of incompatibility with mist. To verify, please launch a "
                    "mission without any scripts or mods. This is frequently caused by Pretense, amongst others.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_mod_aircraft_problem(self, interaction: discord.Interaction):
         message = ("We do not include mod aircraft by default as not everyone has the same mods installed. However, "
@@ -99,7 +101,7 @@ class CommonIssuesView(discord.ui.View):
                    "[here](https://github.com/Pax1601/DCSOlympus/wiki/2.-User-Guide#adding-mods-to-the-database). "
                    "We recommend that you do not try this if you have absolutely no familiarity with code at all. "
                    "Ask a friend who can talk to computers or something.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_econnrefused(self, interaction: discord.Interaction):
         message = ("You did not use netsh to remove a URL reservation. \n\nThis was specified in the installation "
@@ -107,7 +109,7 @@ class CommonIssuesView(discord.ui.View):
                    "in your command line spellcasting interface, however, you will need to remove it if you have done "
                    "so previously. Please follow the instructions "
                    "[here](https://github.com/Pax1601/DCSOlympus/wiki#123-removing-the-net-shell-netsh-rule).")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_browser_says_no(self, interaction: discord.Interaction):
         message = ("There could be several causes of this:\n\n"
