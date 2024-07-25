@@ -1,6 +1,6 @@
 import discord
 
-from src.buttons.common_issues_buttons.common_issues_view import CommonIssuesView
+from ..buttons.base_view import create_base_view
 from ..buttons.problem_resolution_view import ResolutionView
 from ..log_parsing.log_processor import process_attachments
 from ..utils.helper_functions import check_missing_files, generate_response_message
@@ -43,8 +43,7 @@ def register_events(bot):
                         if not missing_files:
 
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
-                            initial_view = create_base_view("initial")
-                            await message.channel.send(response_message, view=CommonIssuesView())
+                            await message.channel.send(response_message, view=create_base_view("common_issues"))
 
                             analysis_results = await process_attachments(attachments)
 
@@ -52,7 +51,9 @@ def register_events(bot):
                                 if log_file == "Olympus_log.txt":
                                     if results:
                                         for result in results:
-                                            await message.channel.send(result, view=ResolutionView())
+                                            await message.channel.send(result,
+                                                                       view=ResolutionView(
+                                                                           include_not_resolved_no_logs=False))
                                     else:
                                         await message.channel.send(f"No issues found in {log_file}")
 
