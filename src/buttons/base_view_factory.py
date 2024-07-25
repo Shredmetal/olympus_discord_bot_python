@@ -1,5 +1,4 @@
 from typing import Literal, Callable
-import discord
 from src.buttons.base_view import BaseView
 
 
