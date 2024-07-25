@@ -3,7 +3,7 @@ import os
 from .commands import register_commands
 from .events import register_events
 from ..utils.constants import INTENTS
-from src.buttons.logs_views import InitialView
+from src.buttons.logs_view import InitialView
 from ..buttons.problem_resolution_view import ResolutionView
 
 bot = commands.Bot(command_prefix='/', intents=INTENTS)
