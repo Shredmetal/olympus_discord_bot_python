@@ -1,23 +1,14 @@
 import discord
 
-from src.buttons.common_issues_list_view import CommonIssuesListView
-from src.core.shared_state import set_thread_state, get_thread_state
+from src.buttons.common_issues_buttons.common_issues_list_view import CommonIssuesListView
+from src.buttons.base_view import BaseView
+from src.core.shared_state import set_thread_state
 from src.utils.enums import ThreadState
-from src.utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, THREAD_CLOSED_STRING
+from src.utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID
 from src.utils.online_resources import get_random_gif
 
 
-class InitialView(discord.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
-
-    async def interaction_check(self, interaction: discord.Interaction) -> bool:
-        thread_state = get_thread_state(interaction.channel.id)
-        if thread_state == ThreadState.CLOSED or thread_state == ThreadState.LOGS_RECEIVED:
-            await interaction.response.send_message(THREAD_CLOSED_STRING, ephemeral=True)
-            return False
-        return True
-
+class InitialView(BaseView):
     @discord.ui.button(label="I do not have dcs.log", style=discord.ButtonStyle.red, custom_id="no_dcs_log")
     async def no_dcs_log(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_no_dcs_log(interaction)
