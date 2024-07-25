@@ -83,11 +83,14 @@ class CommonIssuesView(discord.ui.View):
         await interaction.response.send_message(message, view=self.get_resolution_view())
 
     async def handle_half_scrn_white(self, interaction: discord.Interaction):
-        message = ("This is usually caused by some browser extension. You need to try (1) using incognito mode, (2) "
-                   "disabling extensions, and (3) changing to a different browser. Olympus was built with Chrome in "
-                   "mind and the team does not have the time to test every other browser in existence. Additionally, "
-                   "some password managers / apps may present an alert bar at the top of the page which can cause "
-                   "this issue. Dismiss or close the alert and see if it solves the issue.")
+        message = ("This is usually caused by some browser extension. You need to try:\n\n "
+                   "\t(1) using incognito mode,\n"
+                   "\t(2) disabling extensions, and\n"
+                   "\t(3) changing to a different browser.\n\n "
+                   "Olympus was built with Chrome in mind and the team does not have the time to test every other "
+                   "browser in existence. Additionally, some password managers / apps may present an alert bar at the "
+                   "top of the page which can cause this issue. Dismiss or close the alert and see if it solves the "
+                   "issue.")
         await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_mist_problem(self, interaction: discord.Interaction):
