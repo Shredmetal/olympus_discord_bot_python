@@ -90,12 +90,13 @@ class TestCommands(unittest.IsolatedAsyncioTestCase):
     async def test_support_error_cooldown(self):
         register_commands(self.bot)
 
-        error = commands.CommandOnCooldown(commands.BucketType.user, 30, 3600)  # Added retry_after parameter
+        error = commands.CommandOnCooldown(commands.BucketType.user, 30, 60)  # 60 seconds cooldown
         error_handler = self.mock_command.error.call_args[0][0]
         await error_handler(self.interaction, error)
 
         self.interaction.response.send_message.assert_called_once()
-        self.assertIn("You can only use this command once per hour", self.last_message)
+        expected_message = "You can only use this command once per minute. Please try again in 30.00 seconds."
+        self.assertIn(expected_message, self.last_message)
 
     async def test_support_error_generic(self):
         register_commands(self.bot)

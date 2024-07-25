@@ -2,13 +2,14 @@ import discord
 from typing import Literal
 
 from src.buttons.problem_resolution_view import ResolutionView
-from src.core.shared_state import get_thread_state
-from src.utils.enums import ThreadState
-from src.utils.constants import THREAD_CLOSED_STRING
+from src.shared_utils.shared_state import get_thread_state, set_thread_state
+from src.shared_utils.enums import ThreadState
+from src.shared_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 
 
 class CommonIssuesView(discord.ui.View):
-    def __init__(self, resolution_type: Literal["normal", "no_logs"] = "normal"):
+    def __init__(self,
+                 resolution_type: Literal["normal", "no_logs"] = "normal"):
         super().__init__(timeout=None)
         self.resolution_type = resolution_type
 
@@ -19,9 +20,13 @@ class CommonIssuesView(discord.ui.View):
             return False
         return True
 
-    def get_resolution_view(self) -> ResolutionView:
-        if self.resolution_type == 'no_logs':
+    def get_resolution_view(self, manager_mentioned="yes") -> ResolutionView:
+        if self.resolution_type == "no_logs" and manager_mentioned == "no":
+            return ResolutionView(include_not_resolved=False, include_no_manager=False)
+        elif self.resolution_type == "no_logs":
             return ResolutionView(include_not_resolved=False)
+        elif manager_mentioned == "no":
+            return ResolutionView(include_not_resolved_no_logs=False, include_no_manager=False)
         else:
             return ResolutionView(include_not_resolved_no_logs=False)
 
@@ -50,6 +55,14 @@ class CommonIssuesView(discord.ui.View):
     async def econnrefused(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_econnrefused(interaction)
 
+    @discord.ui.button(label="7", style=discord.ButtonStyle.blurple, custom_id="browser_says_no")
+    async def browser_says_no(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_browser_says_no(interaction)
+
+    @discord.ui.button(label="8", style=discord.ButtonStyle.blurple, custom_id="problem_not_listed")
+    async def problem_not_listed(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_problem_not_listed(interaction)
+
     async def handle_no_usr_pw(self, interaction: discord.Interaction):
         message = ("You set your own username and password when running the installer. Please use Olympus Manager to "
                    "reinstall / reset your username and password. Please read everything in the installer and do not "
@@ -70,17 +83,20 @@ class CommonIssuesView(discord.ui.View):
         await interaction.response.send_message(message, view=self.get_resolution_view())
 
     async def handle_half_scrn_white(self, interaction: discord.Interaction):
-        message = ("This is usually caused by some browser extension. You need to try (1) using incognito mode, (2) "
-                   "disabling extensions, and (3) changing to a different browser. Olympus was built with Chrome in "
-                   "mind and the team does not have the time to test every other browser in existence. Additionally, "
-                   "some password managers / apps may present an alert bar at the top of the page which can cause "
-                   "this issue. Dismiss or close the alert and see if it solves the issue.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        message = ("This is usually caused by some browser extension. You need to try:\n\n "
+                   "\t(1) using incognito mode,\n"
+                   "\t(2) disabling extensions, and\n"
+                   "\t(3) changing to a different browser.\n\n "
+                   "Olympus was built with Chrome in mind and the team does not have the time to test every other "
+                   "browser in existence. Additionally, some password managers / apps may present an alert bar at the "
+                   "top of the page which can cause this issue. Dismiss or close the alert and see if it solves the "
+                   "issue.")
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_mist_problem(self, interaction: discord.Interaction):
         message = ("This is usually caused by some sort of incompatibility with mist. To verify, please launch a "
                    "mission without any scripts or mods. This is frequently caused by Pretense, amongst others.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_mod_aircraft_problem(self, interaction: discord.Interaction):
         message = ("We do not include mod aircraft by default as not everyone has the same mods installed. However, "
@@ -88,7 +104,7 @@ class CommonIssuesView(discord.ui.View):
                    "[here](https://github.com/Pax1601/DCSOlympus/wiki/2.-User-Guide#adding-mods-to-the-database). "
                    "We recommend that you do not try this if you have absolutely no familiarity with code at all. "
                    "Ask a friend who can talk to computers or something.")
-        await interaction.response.send_message(message, view=self.get_resolution_view())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
 
     async def handle_econnrefused(self, interaction: discord.Interaction):
         message = ("You did not use netsh to remove a URL reservation. \n\nThis was specified in the installation "
@@ -96,4 +112,30 @@ class CommonIssuesView(discord.ui.View):
                    "in your command line spellcasting interface, however, you will need to remove it if you have done "
                    "so previously. Please follow the instructions "
                    "[here](https://github.com/Pax1601/DCSOlympus/wiki#123-removing-the-net-shell-netsh-rule).")
-        await interaction.response.send_message(message, view=ResolutionView())
+        await interaction.response.send_message(message, view=self.get_resolution_view(manager_mentioned="no"))
+
+    async def handle_browser_says_no(self, interaction: discord.Interaction):
+        message = ("There could be several causes of this:\n\n"
+                   "\t1. You did not start Olympus server up. If you don't see the Olympus server black command text "
+                   "screen, you didn't start it up.\n"
+                   "\t2. Olympus server is still starting up. Give it a few minutes and wait until you start seeing "
+                   "lines being printed to the Olympus server screen.\n"
+                   "\t3. You are connecting to the wrong URL. Check your Olympus manager ")
+        await interaction.response.send_message(message, view=self.get_resolution_view())
+
+    async def handle_problem_not_listed(self, interaction: discord.Interaction):
+        thread_state = get_thread_state(interaction.channel.id)
+        support_requests_channel = interaction.client.get_channel(SUPPORT_REQUESTS_ID)
+        if support_requests_channel:
+            if thread_state == ThreadState.LOGS_RECEIVED:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has provided logs.")
+            elif thread_state == ThreadState.DCS_LOG_RECEIVED:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has provided dcs.log but no Olympus_log.txt.")
+            else:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has not provided logs.")
+        await interaction.response.send_message("The DCS Olympus team has been notified and one of us will be with"
+                                                " you to look into this eventually.")
+        set_thread_state(interaction.channel.id, ThreadState.CLOSED)
