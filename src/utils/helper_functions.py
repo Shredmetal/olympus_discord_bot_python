@@ -14,10 +14,11 @@ def generate_response_message(missing_files: typing.List[str], troubleshooting_c
     random_gif = get_random_gif()
     if missing_files:
         missing_files_str = ", ".join(missing_files)
-        return (f"Please attach the following missing files: {missing_files_str}. It's literally in the "
-                f"{troubleshooting_channel_mention} channel which you should be reading.\n{random_gif}")
+        return (f"Please attach the following missing files: {missing_files_str}. Please attach them to a single "
+                f"message.\n"
+                f"{random_gif}")
     elif missing_files is None:
-        return f"Please upload the required log files (Olympus_log.txt and dcs.log).\n{random_gif}"
+        return f"Please upload the required log files (Olympus_log.txt and dcs.log) in a single message.\n{random_gif}"
     else:
         return (f"Thank you for attaching the logs! We will get to you eventually, however, if you are experiencing "
                 f"an issue listed on one of the buttons below, please click on them for faster resolution. "
