@@ -123,7 +123,7 @@ class CommonIssuesView(discord.ui.View):
                    "\t3. You are connecting to the wrong URL. Check your Olympus manager ")
         await interaction.response.send_message(message, view=self.get_resolution_view())
 
-    async def handle_browser_says_no(self, interaction: discord.Interaction):
+    async def handle_problem_not_listed(self, interaction: discord.Interaction):
         thread_state = get_thread_state(interaction.channel.id)
         support_requests_channel = interaction.client.get_channel(SUPPORT_REQUESTS_ID)
         if support_requests_channel:
