@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from ..buttons.base_view import create_base_view
+from ..buttons.base_view_factory import create_base_view
 from ..shared_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..shared_utils.enums import ThreadState
 from src.shared_utils.shared_state import set_thread_state
