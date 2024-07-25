@@ -1,6 +1,7 @@
 import discord
 
-from src.buttons.base_view import BaseView, create_base_view
+from src.buttons.base_view import BaseView
+from src.buttons.base_view_factory import create_base_view
 from src.shared_utils.shared_state import set_thread_state
 from src.shared_utils.enums import ThreadState
 from src.shared_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID
