@@ -1,6 +1,6 @@
 import discord
 
-from ..buttons.logs_received_views import LogsReceivedView
+from ..buttons.common_issues_view import CommonIssuesView
 from ..buttons.problem_resolution_view import ResolutionView
 from ..log_parsing.log_processor import process_attachments
 from ..utils.helper_functions import check_missing_files, generate_response_message
@@ -43,7 +43,7 @@ def register_events(bot):
                         if not missing_files:
 
                             set_thread_state(thread_id, ThreadState.LOGS_RECEIVED)
-                            await message.channel.send(response_message, view=LogsReceivedView())
+                            await message.channel.send(response_message, view=CommonIssuesView())
 
                             analysis_results = await process_attachments(attachments)
 
