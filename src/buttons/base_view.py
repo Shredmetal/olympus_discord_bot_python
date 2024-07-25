@@ -4,7 +4,7 @@ from typing import Literal
 
 from src.buttons.common_issues_buttons.common_issues_list_view import CommonIssuesListView
 from src.buttons.logs_view import InitialView
-from src.core.shared_state import get_thread_state
+from src.main_utils.shared_state import get_thread_state
 from src.main_utils.constants import THREAD_CLOSED_STRING
 from src.main_utils.enums import ThreadState
 

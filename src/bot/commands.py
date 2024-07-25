@@ -4,7 +4,7 @@ from discord.ext import commands
 from ..buttons.base_view import create_base_view
 from ..main_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..main_utils.enums import ThreadState
-from ..core.shared_state import set_thread_state
+from src.main_utils.shared_state import set_thread_state
 import logging
 
 

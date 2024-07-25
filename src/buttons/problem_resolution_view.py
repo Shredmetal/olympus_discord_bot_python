@@ -1,6 +1,6 @@
 import discord
 
-from src.core.shared_state import get_thread_state, set_thread_state
+from src.main_utils.shared_state import get_thread_state, set_thread_state
 from src.main_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID, COMMUNITY_SUPPORT_CHANNEL_ID
 from src.main_utils.enums import ThreadState
 from src.main_utils.online_resources import get_random_gif

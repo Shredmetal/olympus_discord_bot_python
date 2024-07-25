@@ -1,6 +1,6 @@
 from src.buttons.base_view import create_base_view
 from src.buttons.problem_resolution_view import ResolutionView
-from src.core.shared_state import set_thread_state
+from src.main_utils.shared_state import set_thread_state
 from src.log_parsing.log_processor import process_attachments
 from src.main_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 from src.main_utils.enums import ThreadState

@@ -2,9 +2,9 @@ import discord
 
 from .events_utils.events_utils import handle_awaiting_logs, handle_no_olympus_logs
 from ..main_utils.missing_file_checker_functions import generate_response_message
-from ..main_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
+from ..main_utils.constants import TROUBLESHOOTING_CHANNEL_ID
 from ..main_utils.enums import ThreadState
-from ..core.shared_state import get_thread_state, set_thread_state
+from src.main_utils.shared_state import get_thread_state, set_thread_state
 from ..core.tasks import cleanup_old_threads
 
 
