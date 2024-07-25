@@ -3,9 +3,11 @@ import asyncio
 import logging
 from unittest.mock import AsyncMock, MagicMock, patch
 import discord
-from ...bot.events import register_events, notify_pantheon
-from ...utils.enums import ThreadState
-from ...utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
+
+from src.bot.events_utils.events_utils import notify_support_requests
+from ...bot.events import register_events
+from ...main_utils.enums import ThreadState
+from ...main_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 
 
 class TestEvents(unittest.TestCase):
@@ -88,7 +90,7 @@ class TestEvents(unittest.TestCase):
 
         self.bot.process_commands.assert_awaited()
 
-    @patch('discord.utils.get')
+    @patch('discord.main_utils.get')
     @patch('src.bot.events.print')  # Assuming the debug message is printed, not logged
     def test_notify_pantheon(self, mock_print, mock_get):
         pantheon_channel = AsyncMock()
@@ -100,7 +102,7 @@ class TestEvents(unittest.TestCase):
         user.name = "TestUser"
         user.discriminator = "1234"
 
-        self.run_coroutine(notify_pantheon(self.bot, thread, user))
+        self.run_coroutine(notify_support_requests(self.bot, thread, user))
 
         self.bot.get_channel.assert_called_with(SUPPORT_REQUESTS_ID)
         pantheon_channel.send.assert_awaited_with(
@@ -109,7 +111,7 @@ class TestEvents(unittest.TestCase):
 
         # Test case: Pantheon channel not found
         self.bot.get_channel.return_value = None
-        self.run_coroutine(notify_pantheon(self.bot, thread, user))
+        self.run_coroutine(notify_support_requests(self.bot, thread, user))
 
         mock_print.assert_called_with(
             f"OLYMPUS DEBUG: Could not find the Pantheon channel with ID {SUPPORT_REQUESTS_ID}")
