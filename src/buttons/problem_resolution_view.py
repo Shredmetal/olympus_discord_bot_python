@@ -1,9 +1,9 @@
 import discord
 
 from src.core.shared_state import get_thread_state, set_thread_state
-from src.utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID, COMMUNITY_SUPPORT_CHANNEL_ID
-from src.utils.enums import ThreadState
-from src.utils.online_resources import get_random_gif
+from src.main_utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID, COMMUNITY_SUPPORT_CHANNEL_ID
+from src.main_utils.enums import ThreadState
+from src.main_utils.online_resources import get_random_gif
 
 
 class ResolutionView(discord.ui.View):
@@ -64,10 +64,15 @@ class ResolutionView(discord.ui.View):
                        custom_id="issue_not_resolved_no_olympus_log")
     async def issue_not_resolved_no_logs(self, interaction: discord.Interaction, button: discord.ui.Button):
         support_requests_channel = interaction.client.get_channel(SUPPORT_REQUESTS_ID)
+        thread_state = get_thread_state(interaction.channel.id)
         random_gif = get_random_gif()
         if support_requests_channel:
-            await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user has "
-                                                f"no olympus log.")
+            if thread_state == ThreadState.DCS_LOG_RECEIVED:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user"
+                                                    f" has provided dcs.log but no Olympus_log.txt.")
+            else:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user"
+                                                    f" has no logs.")
         await interaction.response.send_message(f"The DCS Olympus team has been notified and one of us will be with"
                                                 f" you to look into this eventually. In the meantime, please upload "
                                                 f"your dcs.log. {random_gif}")
