@@ -1,4 +1,4 @@
-from ..utils.enums import ThreadState
+from ..main_utils.enums import ThreadState
 
 thread_states = {}
 
