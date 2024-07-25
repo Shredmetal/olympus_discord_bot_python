@@ -1,4 +1,4 @@
-from src.buttons.base_view import create_base_view
+from src.buttons.base_view_factory import create_base_view
 from src.buttons.problem_resolution_view import ResolutionView
 from src.shared_utils.shared_state import set_thread_state
 from src.log_parsing.log_processor import process_attachments
