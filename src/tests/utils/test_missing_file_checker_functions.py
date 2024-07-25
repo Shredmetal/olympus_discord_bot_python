@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 import discord
-from ...utils.missing_file_checker_functions import check_missing_files, generate_response_message
+from ...main_utils.missing_file_checker_functions import check_missing_files, generate_response_message
 
 
 class TestHelperFunctions(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestHelperFunctions(unittest.TestCase):
         missing_files = check_missing_files(attachments, required_files)
         self.assertEqual(missing_files, ["missing_file.txt"])
 
-    @patch('src.utils.helper_functions.get_random_gif')
+    @patch('src.main_utils.helper_functions.get_random_gif')
     def test_generate_response_message_with_missing_files(self, mock_get_random_gif):
         mock_get_random_gif.return_value = "https://example.com/test.gif"
 
@@ -38,7 +38,7 @@ class TestHelperFunctions(unittest.TestCase):
         # Check if the response contains the mocked GIF URL
         self.assertIn("https://example.com/test.gif", response_message)
 
-    @patch('src.utils.helper_functions.get_random_gif')
+    @patch('src.main_utils.helper_functions.get_random_gif')
     def test_generate_response_message_without_missing_files(self, mock_get_random_gif):
         mock_get_random_gif.return_value = "https://example.com/test.gif"
 
@@ -57,7 +57,7 @@ class TestHelperFunctions(unittest.TestCase):
         # Check that no GIF URL is included when there are no missing files
         self.assertNotIn("http", response_message)
 
-    @patch('src.utils.helper_functions.get_random_gif')
+    @patch('src.main_utils.helper_functions.get_random_gif')
     def test_generate_response_message_with_none_missing_files(self, mock_get_random_gif):
         mock_get_random_gif.return_value = "https://example.com/test.gif"
 
