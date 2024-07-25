@@ -2,15 +2,18 @@ import discord
 from typing import Literal
 
 from src.buttons.problem_resolution_view import ResolutionView
-from src.core.shared_state import get_thread_state
+from src.core.shared_state import get_thread_state, set_thread_state
 from src.utils.enums import ThreadState
-from src.utils.constants import THREAD_CLOSED_STRING
+from src.utils.constants import THREAD_CLOSED_STRING, SUPPORT_REQUESTS_ID
 
 
 class CommonIssuesView(discord.ui.View):
-    def __init__(self, resolution_type: Literal["normal", "no_logs"] = "normal"):
+    def __init__(self,
+                 resolution_type: Literal["normal", "no_logs"] = "normal",
+                 manager_mentioned: Literal["yes", "no"] = "yes"):
         super().__init__(timeout=None)
         self.resolution_type = resolution_type
+        self.manager_mentioned: manager_mentioned
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         thread_state = get_thread_state(interaction.channel.id)
@@ -49,6 +52,14 @@ class CommonIssuesView(discord.ui.View):
     @discord.ui.button(label="6", style=discord.ButtonStyle.blurple, custom_id="econnrefused")
     async def econnrefused(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.handle_econnrefused(interaction)
+
+    @discord.ui.button(label="7", style=discord.ButtonStyle.blurple, custom_id="browser_says_no")
+    async def browser_says_no(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_browser_says_no(interaction)
+
+    @discord.ui.button(label="8", style=discord.ButtonStyle.blurple, custom_id="problem_not_listed")
+    async def problem_not_listed(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_problem_not_listed(interaction)
 
     async def handle_no_usr_pw(self, interaction: discord.Interaction):
         message = ("You set your own username and password when running the installer. Please use Olympus Manager to "
@@ -96,4 +107,27 @@ class CommonIssuesView(discord.ui.View):
                    "in your command line spellcasting interface, however, you will need to remove it if you have done "
                    "so previously. Please follow the instructions "
                    "[here](https://github.com/Pax1601/DCSOlympus/wiki#123-removing-the-net-shell-netsh-rule).")
-        await interaction.response.send_message(message, view=ResolutionView())
+        await interaction.response.send_message(message, view=self.get_resolution_view())
+
+    async def handle_browser_says_no(self, interaction: discord.Interaction):
+        message = ("There could be several causes of this:\n\n"
+                   "\t1. You did not start Olympus server up. If you don't see the Olympus server black command text "
+                   "screen, you didn't start it up.\n"
+                   "\t2. Olympus server is still starting up. Give it a few minutes and wait until you start seeing "
+                   "lines being printed to the Olympus server screen.\n"
+                   "\t3. You are connecting to the wrong URL. Check your Olympus manager ")
+        await interaction.response.send_message(message, view=self.get_resolution_view())
+
+    async def handle_browser_says_no(self, interaction: discord.Interaction):
+        thread_state = get_thread_state(interaction.channel.id)
+        support_requests_channel = interaction.client.get_channel(SUPPORT_REQUESTS_ID)
+        if support_requests_channel:
+            if thread_state == ThreadState.LOGS_RECEIVED:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has provided logs.")
+            else:
+                await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
+                                                    f"has not provided logs.")
+        await interaction.response.send_message("The DCS Olympus team has been notified and one of us will be with"
+                                                " you to look into this eventually.")
+        set_thread_state(interaction.channel.id, ThreadState.CLOSED)
