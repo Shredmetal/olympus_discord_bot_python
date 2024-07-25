@@ -1,7 +1,6 @@
 import discord
 
-from src.buttons.common_issues_buttons.common_issues_list_view import CommonIssuesListView
-from src.buttons.base_view import BaseView
+from src.buttons.base_view import BaseView, create_base_view
 from src.core.shared_state import set_thread_state
 from src.utils.enums import ThreadState
 from src.utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID
@@ -40,4 +39,7 @@ class InitialView(BaseView):
                    "please look through the common issues list by clicking on the list of common issues button below. "
                    f"{random_gif}")
         set_thread_state(interaction.channel.id, ThreadState.NO_OLYMPUS_LOGS)
-        await interaction.response.send_message(message, view=CommonIssuesListView(log_status="no_logs"))
+        await interaction.response.send_message(message,
+                                                view=create_base_view(
+                                                    view_type="common_issues",
+                                                    log_status="no_logs"))
