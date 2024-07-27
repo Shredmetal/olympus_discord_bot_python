@@ -130,7 +130,7 @@ class CommonIssuesView(discord.ui.View):
             if thread_state == ThreadState.LOGS_RECEIVED:
                 await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
                                                     f"has provided logs.")
-            elif thread_state == ThreadState.DCS_LOG_RECEIVED:
+            elif thread_state == ThreadState.DCS_LOG_RECEIVED_USER_NO_OLYMPUS_LOG:
                 await support_requests_channel.send(f"Unresolved issue in thread: {interaction.channel.mention}, user "
                                                     f"has provided dcs.log but no Olympus_log.txt.")
             else:
