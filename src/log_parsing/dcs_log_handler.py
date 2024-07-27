@@ -41,6 +41,4 @@ def process_dcs_log(content: str) -> List[str]:
                        f"troubleshoot from there. If you are not able to, make the appropriate selection and one of us "
                        f"will get to you.")
 
-
-
     return results
