@@ -28,16 +28,18 @@ def process_dcs_log(content: str) -> List[str]:
                        f"Olympus Process Execution: No lines found in dcs.log\n\n"
                        f"This means that DCS Olympus has probably been correctly installed for the DCS instance to "
                        f"which this dcs.log pertains. However, the Olympus processes seem to have an issue running. "
-                       f"Please select common issues and attempt further troubleshooting from there. If that fails, "
-                       f"just indicate that your issue is not resolved and a member of the DCS Olympus Team will get "
-                       f"around to helping you out.")
+                       f"Please click the common issues button and attempt further troubleshooting from there. If that "
+                       f"fails, just indicate that your issue is not resolved and a member of the DCS Olympus Team "
+                       f"will get around to helping you out.")
     elif not successful_install_matches and execution_process_matches:
         results.append(f"The following lines have been found in your dcs.log\n\n"
                        f"Installation: No lines found in dcs.log\n\n"
                        f"Olympus Process Execution: {execution_process_matches}\n\n"
                        f"Have an award. We're not quite sure how you managed it but your log seems to indicate that "
                        f"Olympus has not been installed for this DCS instance but somehow certain Olympus processes "
-                       f"appear to be running. Either way, please ")
+                       f"appear to be running. Either way, please click the common issues button and try to "
+                       f"troubleshoot from there. If you are not able to, make the appropriate selection and one of us "
+                       f"will get to you.")
 
 
 
