@@ -34,6 +34,7 @@ def register_events(bot):
                     await handle_awaiting_logs(message, thread_id, current_state, bot)
                 elif current_state == ThreadState.NO_OLYMPUS_LOGS:
                     await handle_no_olympus_logs(message, thread_id, current_state, bot)
+                # TODO handle AWAITING_DCS_LOG and AWAITING_OLYMPUS_LOG
                 elif current_state == ThreadState.LOGS_RECEIVED:
                     return
                 elif current_state == ThreadState.CLOSED:
