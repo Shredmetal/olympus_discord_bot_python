@@ -9,7 +9,8 @@ def process_olympus_log(content: str) -> List[str]:
     port_in_use_mentions = re.findall(r"Address\s+'([^']+)'\s+is already in use", content, re.MULTILINE)
 
     if access_denied_mentions:
-        responses.append("Access denied detected in Olympus_log.txt - likely causes of this are: \n\n\t(1) You did not "
+        responses.append("Your Olympus_log.txt file analysis:\n\n"
+                         "Access denied detected in Olympus_log.txt - likely causes of this are: \n\n\t(1) You did not "
                          "use netsh to remove a URL reservation or \n\n\t(2) you picked to enable direct backend "
                          "connections but did NOT do a URL reservation to allow it to bind the port. \n\nThis was "
                          "specified in the installation instructions. Either way, in DCS Olympus v1.0.4, we have "
