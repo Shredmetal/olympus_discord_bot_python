@@ -81,7 +81,7 @@ class ResolutionView(discord.ui.View):
         thread_state = get_thread_state(interaction.channel.id)
         random_gif = get_random_gif()
         if support_requests_channel:
-            if thread_state == ThreadState.DCS_LOG_RECEIVED:
+            if thread_state == ThreadState.DCS_LOG_RECEIVED_USER_NO_OLYMPUS_LOG:
                 await support_requests_channel.send(
                     f"Unresolved issue in thread: {interaction.channel.mention}, user has provided dcs.log but no Olympus_log.txt.")
             else:

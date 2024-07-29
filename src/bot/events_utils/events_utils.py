@@ -5,6 +5,7 @@ from src.log_parsing.log_processor import process_attachments
 from src.shared_utils.constants import TROUBLESHOOTING_CHANNEL_ID, SUPPORT_REQUESTS_ID
 from src.shared_utils.enums import ThreadState
 from src.bot.events_utils.missing_file_checker_functions import generate_response_message, check_missing_files
+from typing import List, Dict
 
 
 async def handle_awaiting_logs(message, thread_id, current_state, bot):
@@ -31,6 +32,7 @@ async def handle_awaiting_logs(message, thread_id, current_state, bot):
 
     analysis_results = await process_attachments(attachments)
 
+    # TODO There is some tech debt here in the message senders that work with the log file, please refactor
     for log_file, results in analysis_results.items():
         if log_file == "Olympus_log.txt":
             if results:
@@ -42,14 +44,10 @@ async def handle_awaiting_logs(message, thread_id, current_state, bot):
             else:
                 await message.channel.send(f"No issues found in {log_file}")
 
-        # TODO Implement the dcs.log parsing logic
-        # elif log_file == "dcs.log":
-        #     if results:
-        #         await message.channel.send(f"Issues found in {log_file}:")
-        #         for issue in results:
-        #             await message.channel.send(issue)
-        #     else:
-        #         await message.channel.send(f"No issues found in {log_file}")
+        elif log_file == "dcs.log":
+            if results:
+                for issue in results:
+                    await message.channel.send(issue)
 
     await notify_support_requests(bot, message.channel, message.author)
 
@@ -70,20 +68,16 @@ async def handle_no_olympus_logs(message, thread_id, current_state, bot):
     )
 
     if not missing_dcs_log:
-        set_thread_state(thread_id, ThreadState.DCS_LOG_RECEIVED)
+        set_thread_state(thread_id, ThreadState.DCS_LOG_RECEIVED_USER_NO_OLYMPUS_LOG)
         await message.channel.send(no_olympus_log_response_message, view=create_base_view("common_issues"))
 
-        # analysis_results = await process_attachments(attachments)
+        analysis_results = await process_attachments(attachments)
 
-        # for log_file, results in analysis_results.items():
-        #     TODO Implement the dcs.log parsing logic
-        #     if log_file == "dcs.log":
-        #         if results:
-        #             await message.channel.send(f"Issues found in {log_file}:")
-        #             for issue in results:
-        #                 await message.channel.send(issue)
-        #         else:
-        #             await message.channel.send(f"No issues found in {log_file}")
+        for log_file, results in analysis_results.items():
+            if log_file == "dcs.log":
+                if results:
+                    for issue in results:
+                        await message.channel.send(issue)
 
         await notify_support_requests(bot, message.channel, message.author)
     else:
