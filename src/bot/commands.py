@@ -1,6 +1,8 @@
 import discord
+from discord import app_commands
 from discord.ext import commands
 
+from .commands_utils.commands_utils import has_support_creation_permission
 from ..buttons.base_view_factory import create_base_view
 from ..shared_utils.constants import COMMUNITY_SUPPORT_CHANNEL_ID, TROUBLESHOOTING_CHANNEL_ID
 from ..shared_utils.enums import ThreadState
@@ -13,9 +15,22 @@ logger = logging.getLogger(__name__)
 
 
 def register_commands(bot):
-    @bot.tree.command(name="support", description="Initiate an Olympus support request")
+    @bot.tree.command(name="support", description="Initiate an Olympus support request.")
+    @app_commands.describe(user="The user for whom a support thread is to be created (leave blank to create a support "
+                                "thread for yourself. This parameter may only be used by the DCS Olympus Team.")
     @commands.cooldown(1, 60, commands.BucketType.user)
-    async def support(interaction: discord.Interaction):
+    async def support(interaction: discord.Interaction, user: discord.Member = None):
+        if user is None:
+            user = interaction.user
+
+        if user != interaction.user:
+            if not has_support_creation_permission(interaction.user):
+                await interaction.response.send_message(
+                    "You do not have permission to create support threads for other users!",
+                    ephemeral=True
+                )
+                return
+
         if interaction.channel_id != COMMUNITY_SUPPORT_CHANNEL_ID:
             correct_channel = interaction.guild.get_channel(COMMUNITY_SUPPORT_CHANNEL_ID)
             if correct_channel:
@@ -50,7 +65,7 @@ def register_commands(bot):
 
         troubleshooting_channel_mention = f"<#{TROUBLESHOOTING_CHANNEL_ID}>"
 
-        thread_name = f"Support for {interaction.user.name}"
+        thread_name = f"Support for {user.name}"
 
         try:
             thread = await interaction.channel.create_thread(
@@ -76,13 +91,13 @@ def register_commands(bot):
             return
 
         await interaction.response.send_message(
-            content=f"Support thread created: {thread.mention}\nPlease upload your log files (Olympus_log.txt and "
-                    f"dcs.log) in this thread.",
+            content=f"Support thread created for {user.mention}: {thread.mention}\n"
+                    f"Please upload your log files (Olympus_log.txt and dcs.log) in this thread.",
             ephemeral=True
         )
 
         await thread.send(
-            f"{interaction.user.mention} Welcome to your support thread. Before proceeding, please ensure you have read"
+            f"{user.mention} Welcome to your support thread. Before proceeding, please ensure you have read"
             f" all the information in the {troubleshooting_channel_mention} channel. This means that you should:\n\n"
             f"Read through the [Installation Guide](https://github.com/Pax1601/DCSOlympus/wiki) to ensure you have "
             f"setup Olympus correctly.\n\n"
