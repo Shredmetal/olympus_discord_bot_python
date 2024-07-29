@@ -17,6 +17,7 @@ register_events(bot)
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+    await bot.tree.sync()
     bot.add_view(InitialView())
     bot.add_view(ResolutionView())
     bot.add_view(CommonIssuesListView())
