@@ -10,7 +10,6 @@ SUPPORT_REQUESTS_ID = int(os.getenv('SUPPORT_REQUESTS_ID', '1265325469218246656'
 
 SUPPORT_CREATION_ROLES = ["admin", "olympian", "developer"]
 
-
 THREAD_CLOSED_STRING = ("This thread is no longer being monitored by the Olympus Discord Bot. Depending on your "
                         "interactions above, this means you either need to follow the instructions and install "
                         "/ reinstall DCS (Olympus), or a member of the DCS Olympus Team is looking into your "
