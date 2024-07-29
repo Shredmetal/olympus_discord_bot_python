@@ -32,7 +32,7 @@ async def handle_awaiting_logs(message, thread_id, current_state, bot):
 
     analysis_results = await process_attachments(attachments)
 
-    # TODO this is a code smell. It's used in more than one function - refactor away into another function.
+    # TODO There is some tech debt here in the message senders that work with the log file, please refactor
     for log_file, results in analysis_results.items():
         if log_file == "Olympus_log.txt":
             if results:
@@ -46,11 +46,8 @@ async def handle_awaiting_logs(message, thread_id, current_state, bot):
 
         elif log_file == "dcs.log":
             if results:
-                await message.channel.send(f"Issues found in {log_file}:")
                 for issue in results:
                     await message.channel.send(issue)
-            else:
-                await message.channel.send(f"No issues found in {log_file}")
 
     await notify_support_requests(bot, message.channel, message.author)
 
@@ -76,15 +73,11 @@ async def handle_no_olympus_logs(message, thread_id, current_state, bot):
 
         analysis_results = await process_attachments(attachments)
 
-        # TODO - this bit needs to be refactored.
         for log_file, results in analysis_results.items():
             if log_file == "dcs.log":
                 if results:
-                    await message.channel.send(f"Issues found in {log_file}:")
                     for issue in results:
                         await message.channel.send(issue)
-                else:
-                    await message.channel.send(f"No issues found in {log_file}")
 
         await notify_support_requests(bot, message.channel, message.author)
     else:
@@ -99,15 +92,3 @@ async def notify_support_requests(bot, thread, user):
             f"Support request received with logs at {thread.mention} from user: {user_identifier}")
     else:
         print(f"OLYMPUS DEBUG: Could not find the Pantheon channel with ID {SUPPORT_REQUESTS_ID}")
-
-
-async def get_log_file_results(log_type: str, analysis_results: Dict[str, List[str]], message):
-    #TODO Refactor the code smell bit above into here
-    for log_file, results in analysis_results.items():
-        if log_file == log_type:
-            if results:
-                await message.channel.send(f"Issues found in {log_file}:")
-                for issue in results:
-                    await message.channel.send(issue)
-            else:
-                await message.channel.send(f"No issues found in {log_file}")
